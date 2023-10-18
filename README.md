@@ -35,7 +35,7 @@ The parameter [0/1/2] stands for the identifier of the three servers.
 ## Plaintext Experiments
 We provide a series of bash scripts for our experiments on plaintext.  Users should install PostgreSQL and Spark in advance and advise the executable file in configuration or under $PATH.
 
-For the experiment on DuckDB, users are not required to provide an executable file.  Users can run 'runproductK.sh', 'runlevelK.sh', 'rundiffK.sh', 'rundiffDist.sh' under ./scripts/DuckDB to obtain the experiment results.  New queries can be added under the QueryTemplate and run with 
+For the experiment on DuckDB, users should put the executable file under the script folder, or use DownloadCLI.sh to download the CLI executable under the folder.  Users can run 'runproductK.sh', 'runlevelK.sh', 'rundiffK.sh', 'rundiffDist.sh' under ./scripts/DuckDB to obtain the experiment results.  New queries can be added under the QueryTemplate and run with 
 ```
 TopKWrapper.sh ${input_query} ${input_k} ${input_graph} 1(only for level-K)
 ```
