@@ -12,7 +12,7 @@ R2 as (select R1.A, R1.B, R1.Z, R1.ZZ, R1.ZZ+S11.ZZ as ZZZ from R1 join S11 on R
 -- R join S
 R11 as (select A, max(ZZ) as Z from R2 group by A),
 S2 as (select S1.A as A, C, S1.Z as Z, ZZ from R11 join S1 on R11.A=S1.A order by R11.Z+S1.ZZ desc limit #K),
-RS as (select R2.A, B as B, C, R2.Z+S2.Z as Z from R2 join S2 on R2.A=S2.A order by R2.Z+S2.ZZ desc limit #K),
+RS as (select R2.A, B as B, C, R2.Z+S2.Z as Z from R2 join S2 on R2.A=S2.A order by R2.ZZ+S2.ZZ desc limit #K),
 -- then join T
 RS11 as (select A, max(Z) as Z from RS group by A),
 T2 as (select T1.A as A, D, T1.Z as Z, ZZ from RS11 join T1 on RS11.A=T1.A order by RS11.Z+T1.ZZ desc limit #K),
