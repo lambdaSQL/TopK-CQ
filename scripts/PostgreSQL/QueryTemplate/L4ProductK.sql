@@ -18,7 +18,7 @@ RS as (select A, R1.B as B, C, R1.Z+S2.Z as Z from R1 join S2 on R1.B=S2.B order
 -- then join T
 RS11 as (select C, max(Z) as Z from RS group by C),
 T2 as (select T1.C as C, D, T1.Z as Z, ZZ from RS11 join T1 on RS11.C=T1.C order by RS11.Z+T1.ZZ desc limit #K),
-RST as (select A, B, RS.C, D, RS.Z+T2.Z as Z from RS join T2 on RS.C=T2.C order by Z desc limit #K),
+RST as (select A, B, RS.C, D, RS.Z+T2.Z as Z from RS join T2 on RS.C=T2.C order by RS.Z+T2.ZZ desc limit #K),
 -- then join U
 RST11 as (select D, max(Z) as Z from RST group by D),
 U2 as (select U1.D as D, E, U1.Z as Z, ZZ from RST11 join U1 on RST11.D=U1.D order by RST11.Z+U1.ZZ desc limit #K),
