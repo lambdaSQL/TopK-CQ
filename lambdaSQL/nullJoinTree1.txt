@@ -1,0 +1,8 @@
+jt.root:
+1
+edge:
+1->2
+relation in subset:
+1
+2
+comparison hypergraph edge:

@@ -8,13 +8,17 @@ TopK
 └─── SecTopK
 │    └─── SecTopK     // Source codes of secure implementation
 │    └─── some aby3 dependencies
-└─── python
+└─── python  // Legency version of query rewriter
+└─── C++  // Source codes of C++ version for Product-K and Level-K
+└─── RankEnum  // Source codes of rank enumeration algorithms from paper "Ranked enumeration of Join Queries with Projection"
+└─── lambdaSQL // Source codes of lambdaSQL system, with end-to-end parser, rewriter and DuckDB support
 └─── scripts
 │    └─── DuckDB     // Test scripts for DuckDB
 |           └─── QueryTemplate  // All SQL Queries used in the experiment.  *Original.sql represents the original SQL queries,
 |                               // *ProductK.sql represents the rewrite SQL using the product-k algorithm, *LevelK.sql represents the rewrite SQL using the level-K algorithm.  
 │    └─── SparkSQL   // Test scripts for SparkSQL
 │    └─── PostgreSQL // Test scripts for PostgreSQL
+└─── techreport.pdf  // Technical report of the paper with appendix.
 ```
 
 ## SecTopK
@@ -44,3 +48,7 @@ For example,
 TopKWrapper.sh L3ProductK 1024 twitter 0
 ```
 executes L3ProductK.sql in DuckDB with k = 1024 and using graph twitter.
+
+## Other Experiments
+
+You can refer to the README file under each directory to get the usage of each platform.

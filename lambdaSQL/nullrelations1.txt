@@ -1,0 +1,3 @@
+TableScanRelation;id=1;source=Dummy;cols=(v1:IntDataType,v2:IntDataType,v3:IntDataType,v4:DoubleDataType);tableDisplayName=A
+TableScanRelation;id=1;source=Dummy;cols=(v1:IntDataType,v2:IntDataType,v3:IntDataType,v4:DoubleDataType);tableDisplayName=A
+TableScanRelation;id=2;source=Dummy;cols=(v2:IntDataType,v6:IntDataType,v7:IntDataType,v8:DoubleDataType);tableDisplayName=B

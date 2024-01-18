@@ -16,13 +16,17 @@ if_null=0
 if [[ -n $4 ]]; then 
 	if_null=$4 
 fi
+num_parallel=1
+if [[ -n $5 ]]; then
+	num_parallel=$5
+fi
 schema="topk"
 
 log_path="${PARENT_PATH}/log"
 mkdir -p ${log_path}
 
-log_file="${log_path}/duckdb_${schema}_${input_query}_${input_k}_${input_graph}.log"
-result_file="${log_path}/duckdb_${schema}_${input_query}_${input_k}_${input_graph}.result"
+log_file="${log_path}/duckdb_${schema}_${input_query}_${input_k}_${input_graph}_p${num_parallel}.log"
+result_file="${log_path}/duckdb_${schema}_${input_query}_${input_k}_${input_graph}_p${num_parallel}.result"
 
 touch $log_file
 touch $result_file
@@ -38,7 +42,7 @@ echo "Start DuckDB Task!"
 current_task=1
 while [[ ${current_task} -le ${repeat_count} ]]
 do
-    timeout -s SIGKILL 8h bash "${SCRIPT_PATH}/TopKWrapper.sh" "${input_query}" "${input_k}" "${input_graph}" "${if_null}" >> "${log_file}"
+    timeout -s SIGKILL 8h bash "${SCRIPT_PATH}/TopKWrapper.sh" "${input_query}" "${input_k}" "${input_graph}" "${if_null}" "${num_parallel}" >> "${log_file}"
 
     status_code=$?
     if [[ ${status_code} -eq 137 ]]; then

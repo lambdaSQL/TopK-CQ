@@ -1,0 +1,4 @@
+{
+  "ddl": "CREATE TABLE Dummy (\n    a INT,\n    b INT\n)",
+  "query": "SELECT * \nFROM Dummy AS d1, Dummy AS d2, Dummy AS d3\nWHERE d1.b = d2.a AND d2.b = d3.a\n ORDER BY d1.a DESC LIMIT 101"
+}

@@ -1,0 +1,18 @@
+with
+R597 as (select src as v1, dst as v2, rating as Z, rating as ZZ from Graph as R), 
+RAgg792 as (select v2, max(ZZ) as ZZ from R597 group by v2), 
+Sjoin401 as (select src as v2, dst as v5, rating as Z, Graph.rating+RAgg792.ZZ as ZZ from Graph, RAgg792 where Graph.src=RAgg792.v2), 
+SAgg676 as (select v5, max(ZZ) as ZZ from Sjoin401 group by v5), 
+Tjoin843 as (select src as v5, dst as v8, rating as Z, Graph.rating+SAgg676.ZZ as ZZ from Graph, SAgg676 where Graph.src=SAgg676.v5), 
+TAgg497 as (select v8, max(ZZ) as ZZ from Tjoin843 group by v8), 
+Ujoin584 as (select src as v8, dst as v11, rating as Z, Graph.rating+TAgg497.ZZ as ZZ from Graph, TAgg497 where Graph.src=TAgg497.v8 order by ZZ DESC limit 7), 
+U945 as (select v8, max(Z) as Z from Ujoin584 group by v8), 
+T_prune118 as (select v5, v8, Tjoin843.Z as Z, ZZ from Tjoin843 join U945 using(v8) order by U945.Z+Tjoin843.ZZ DESC limit 7), 
+T_join153 as (select Ujoin584.Z + T_prune118.Z as Z, v5, v8, v11 from Ujoin584 join T_prune118 using(v8) order by Ujoin584.Z+T_prune118.ZZ DESC limit 7), 
+T972 as (select v5, max(Z) as Z from T_join153 group by v5), 
+S_prune628 as (select v2, v5, Sjoin401.Z as Z, ZZ from Sjoin401 join T972 using(v5) order by T972.Z+Sjoin401.ZZ DESC limit 7), 
+S_join821 as (select T_join153.Z + S_prune628.Z as Z, v2, v5, v8, v11 from T_join153 join S_prune628 using(v5) order by T_join153.Z+S_prune628.ZZ DESC limit 7), 
+S499 as (select v2, max(Z) as Z from S_join821 group by v2), 
+R_prune579 as (select v1, v2, R597.Z as Z, ZZ from R597 join S499 using(v2) order by S499.Z+R597.ZZ DESC limit 7), 
+R_join224 as (select S_join821.Z + R_prune579.Z as Z, v1, v5, v2, v8, v11 from S_join821 join R_prune579 using(v2) order by Z DESC limit 7)
+COPY (select v1,v2,v5,v8,v11,Z from R_join224) TO '/dev/null' (DELIMITER ',');

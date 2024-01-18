@@ -15,6 +15,7 @@ function execute_duckdb {
     input_k=$2
     input_graph=$3
     if_null=$4
+    num_parallel=$5
     #ran=$RANDOM
     query_template="${SCRIPT_PATH}/QueryTemplate/${input_query}.sql"
     schema_file="${SCRIPT_PATH}/QueryTemplate/load_${schema}.sql"
@@ -46,14 +47,18 @@ function execute_duckdb {
     #export LD_LIBRARY_PATH="/usr/local/GNU/glibc-2.34/:$LD_LIBRARY_PATH"
 #	export LD_PRELOAD="/usr/local/GNU/glibc-2.34/lib/libc.so.6"
 	#/usr/local/GNU/glibc-2.34/lib/ld-linux-x86-64.so.2 --library-path /usr/local/GNU/glibc-2.34/ 
-	"${SCRIPT_PATH}/duckdb" -c ".mode csv" -c ".read ${load_query}" -c "SET threads TO 1;" -c ".timer on" -c ".read ${submit_query}"
+	"${SCRIPT_PATH}/duckdb" -c ".mode csv" -c ".read ${load_query}" -c "SET threads TO ${num_parallel};" -c ".timer on" -c ".read ${submit_query}"
 }
 
 input_query=$1
 input_k=$2
 input_graph=$3
+num_parallel=1
+if [[ -n $5 ]]; then
+	num_parallel=$5
+fi
 if [[ -n $4 ]]; then
-	execute_duckdb ${input_query} ${input_k} ${input_graph} $4
+	execute_duckdb ${input_query} ${input_k} ${input_graph} $4 ${num_parallel}
 else
-	execute_duckdb ${input_query} ${input_k} ${input_graph} 0
+	execute_duckdb ${input_query} ${input_k} ${input_graph} 0 ${num_parallel}
 fi
