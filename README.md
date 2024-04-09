@@ -13,12 +13,11 @@ TopK
 └─── RankEnum  // Source codes of rank enumeration algorithms from paper "Ranked enumeration of Join Queries with Projection"
 └─── lambdaSQL // Source codes of lambdaSQL system, with end-to-end parser, rewriter and DuckDB support
 └─── scripts
-│    └─── DuckDB     // Test scripts for DuckDB
-|           └─── QueryTemplate  // All SQL Queries used in the experiment.  *Original.sql represents the original SQL queries,
-|                               // *ProductK.sql represents the rewrite SQL using the product-k algorithm, *LevelK.sql represents the rewrite SQL using the level-K algorithm.  
-│    └─── SparkSQL   // Test scripts for SparkSQL
-│    └─── PostgreSQL // Test scripts for PostgreSQL
-└─── techreport.pdf  // Technical report of the paper with appendix.
+     └─── DuckDB     // Test scripts for DuckDB
+     |      └─── QueryTemplate  // All SQL Queries used in the experiment.  *Original.sql represents the original SQL queries,
+     |                          // *ProductK.sql represents the rewrite SQL using the product-k algorithm, *LevelK.sql represents the rewrite SQL using the level-K algorithm.  
+     └─── SparkSQL   // Test scripts for SparkSQL
+     └─── PostgreSQL // Test scripts for PostgreSQL
 ```
 
 ## SecTopK
